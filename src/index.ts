@@ -12,9 +12,22 @@ import { redis } from "./redis";
 import { LoginResolver } from "./modules/user/Login";
 import { MeResolver } from "./modules/user/Me";
 import { Context } from "./types/Context";
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 const main = async () => {
     await createConnection();
+
+    firebase.initializeApp({
+        apiKey: "AIzaSyA4U6Gl-ouM8XHfFfhi_zHew_yewpCKurI",
+        authDomain: "graphql-service.firebaseapp.com",
+        databaseURL: "https://graphql-service.firebaseio.com",
+        projectId: "graphql-service",
+        storageBucket: "graphql-service.appspot.com",
+        messagingSenderId: "492743545078",
+        appId: "1:492743545078:web:34aff548b0b2691a90dcd7",
+        measurementId: "G-WV3938P4PZ"
+    });
 
     const schema = await buildSchema({
         resolvers: [MeResolver, RegisterResolver, LoginResolver]
@@ -22,7 +35,9 @@ const main = async () => {
 
     const apolloServer = new ApolloServer({
         schema,
-        context: ({ req }: Context) => ({ req }) // every request made gets Context
+        context: ({ req }: Context) => ({ 
+            req 
+        }) // every request made gets Context
     });
 
     const app = Express();

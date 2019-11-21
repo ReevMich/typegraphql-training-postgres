@@ -8,6 +8,7 @@ import bcrypt from "bcryptjs";
 
 import { User } from "../../entity/User";
 import { RegisterInput } from "./register/RegisterInput";
+import firebase from 'firebase/app';
 
 @Resolver()
 export class RegisterResolver {
@@ -30,5 +31,19 @@ export class RegisterResolver {
     }).save();
 
     return user;
+  }
+
+  @Mutation(() => String)
+  async registerWithGoogleAuth(
+    @Arg("email") email: string,
+    @Arg("password") password: string,
+  ): Promise<String> {
+
+    return firebase.auth().createUserWithEmailAndPassword(
+      email, password
+    ).then((data) => {
+      return data.user!.uid;
+    })
+
   }
 }
