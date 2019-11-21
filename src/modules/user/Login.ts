@@ -1,6 +1,6 @@
 import { Mutation, Arg, Resolver, Ctx } from "type-graphql";
 import bcrypt from "bcryptjs";
-import { MyContext } from "../../types/MyContext";
+import { Context } from "../../types/Context";
 import { User } from "../../entity/User";
 
 
@@ -11,7 +11,7 @@ export class LoginResolver {
     async login(
         @Arg("email") email: string,
         @Arg("password") password: string,
-        @Ctx() ctx: MyContext
+        @Ctx() ctx: Context
     ): Promise<User | null> {
 
         // Search Data base for user

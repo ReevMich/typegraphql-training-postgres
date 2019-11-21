@@ -3,14 +3,14 @@ import {
   Query,
   Ctx
 } from "type-graphql";
-import { MyContext } from "src/types/MyContext";
+import { Context } from "src/types/Context";
 import { User } from "../../entity/User";
 
 @Resolver()
 export class MeResolver {
   @Query(() => User)
   async me(
-    @Ctx() ctx: MyContext
+    @Ctx() ctx: Context
   ): Promise<User | null | undefined> {
 
     if (!ctx.req.session!.uid) {

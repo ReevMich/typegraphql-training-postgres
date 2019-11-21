@@ -11,7 +11,7 @@ import { RegisterResolver } from "./modules/user/Register";
 import { redis } from "./redis";
 import { LoginResolver } from "./modules/user/Login";
 import { MeResolver } from "./modules/user/Me";
-import { MyContext } from "./types/MyContext";
+import { Context } from "./types/Context";
 
 const main = async () => {
     await createConnection();
@@ -22,7 +22,7 @@ const main = async () => {
 
     const apolloServer = new ApolloServer({
         schema,
-        context: ({ req }: MyContext) => ({ req }) // every request made gets Context
+        context: ({ req }: Context) => ({ req }) // every request made gets Context
     });
 
     const app = Express();
