@@ -8,7 +8,7 @@ import bcrypt from "bcryptjs";
 
 import { User } from "../../entity/User";
 import { RegisterInput } from "./register/RegisterInput";
-import firebase from 'firebase/app';
+import { Auth } from "../../firebase";
 
 @Resolver()
 export class RegisterResolver {
@@ -39,9 +39,10 @@ export class RegisterResolver {
     @Arg("password") password: string,
   ): Promise<String> {
 
-    return firebase.auth().createUserWithEmailAndPassword(
+    return Auth.createUserWithEmailAndPassword(
       email, password
     ).then((data) => {
+      data.user!.sendEmailVerification()
       return data.user!.uid;
     })
 

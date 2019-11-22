@@ -2,7 +2,7 @@ import { Mutation, Arg, Resolver, Ctx } from "type-graphql";
 import bcrypt from "bcryptjs";
 import { Context } from "../../types/Context";
 import { User } from "../../entity/User";
-import firebase from 'firebase/app';
+import { Auth } from "../../firebase";
 
 
 @Resolver()
@@ -38,10 +38,10 @@ export class LoginResolver {
     ): Promise<String | null> {
 
         // Search Data base for user
-        return firebase.auth().signInWithEmailAndPassword(email, password).then((data) => {
-            if(!data.user || !data.user!.uid) return null;
+        return Auth.signInWithEmailAndPassword(email, password).then((data) => {
+            if(!data.user || !data.user.emailVerified || !data.user.uid) return null;
 
-            ctx.req.session!.uid = data.user!.uid;
+            ctx.req.session!.uid = data.user.uid;
             return data.user.uid;
         })
 
