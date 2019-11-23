@@ -10,8 +10,8 @@ import bcrypt from "bcryptjs";
 import { User } from "../../entity/User";
 import { RegisterInput } from "./register/RegisterInput";
 import { Auth } from "../../firebase";
-import { sendEmail } from "../../utils/sendEmail";
-import { createConfirmationUrl } from "../../utils/createConfirmationUrl";
+import { sendEmail } from "../utils/sendEmail";
+import { createConfirmationUrl } from "../utils/createConfirmationUrl";
 import { isAuth } from "../middleware/isAuth";
 import { logger } from "../middleware/logger";
 
