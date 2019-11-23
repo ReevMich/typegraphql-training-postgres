@@ -2,7 +2,7 @@ import { Entity, Column } from "typeorm";
 import { ObjectType, Field, Root } from "type-graphql";
 import { IBaseEntity } from "./EntityBase";
 
-@ObjectType({implements: IBaseEntity})
+@ObjectType({ implements: IBaseEntity })
 @Entity()
 export class User extends IBaseEntity {
   @Field()
@@ -24,4 +24,7 @@ export class User extends IBaseEntity {
   name(@Root() parent: User): string {
     return `${parent.firstName} ${parent.lastName}`;
   }
+
+  @Column('bool', { default: false })
+  confirmedEmail: boolean;
 }

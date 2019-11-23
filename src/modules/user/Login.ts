@@ -7,6 +7,8 @@ import { Auth } from "../../firebase";
 
 @Resolver()
 export class LoginResolver {
+
+    /// Login with Local Postgres Database
     @Mutation(() => User, { nullable: true })
     async login(
         @Arg("email") email: string,
@@ -24,12 +26,16 @@ export class LoginResolver {
 
         if (!valid) return null;
 
+        if(!user.confirmedEmail) 
+            throw new Error('You must confirm you email address');
+
         // set cookie with user.id
         ctx.req.session!.uid = user.id;
 
         return user;
     }
 
+    /// Login with Google Auth Service
     @Mutation(() => String, { nullable: true })
     async loginWithGoogleAuth(
         @Arg("email") email: string,

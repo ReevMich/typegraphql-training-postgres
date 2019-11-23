@@ -9,6 +9,8 @@ import bcrypt from "bcryptjs";
 import { User } from "../../entity/User";
 import { RegisterInput } from "./register/RegisterInput";
 import { Auth } from "../../firebase";
+import { sendEmail } from "../../utils/sendEmail";
+import { createConfirmationUrl } from "../../utils/createConfirmationUrl";
 
 @Resolver()
 export class RegisterResolver {
@@ -28,7 +30,9 @@ export class RegisterResolver {
       lastName,
       email,
       password: hashedPassword
-    }).save();
+    }).save()
+      
+    await sendEmail(user.email, await createConfirmationUrl(user.id), 'Confirm Email');
 
     return user;
   }
