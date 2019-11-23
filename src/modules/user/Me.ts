@@ -8,7 +8,7 @@ import { User } from "../../entity/User";
 
 @Resolver()
 export class MeResolver {
-  @Query(() => User)
+  @Query(() => User, { nullable: true })
   async me(
     @Ctx() ctx: Context
   ): Promise<User | null | undefined> {

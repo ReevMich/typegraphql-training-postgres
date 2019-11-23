@@ -1,6 +1,7 @@
-import { Request } from 'express';
+import { Request, Response } from 'express';
 
 export interface Context {
     req: Request
-    fb: firebase.app.App
+    res: Response,
+    auth: firebase.auth.Auth
 }

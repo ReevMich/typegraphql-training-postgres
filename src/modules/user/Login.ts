@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { Context } from "../../types/Context";
 import { User } from "../../entity/User";
 import { Auth } from "../../firebase";
+import { LoginInput } from "./login/LoginInput";
 
 
 @Resolver()
@@ -11,18 +12,17 @@ export class LoginResolver {
     /// Login with Local Postgres Database
     @Mutation(() => User, { nullable: true })
     async login(
-        @Arg("email") email: string,
-        @Arg("password") password: string,
+        @Arg("data") loginInput: LoginInput,
         @Ctx() ctx: Context
     ): Promise<User | null> {
 
         // Search Data base for user
-        const user = await User.findOne({ where: { email } });
+        const user = await User.findOne({ where: { email: loginInput.email } });
 
         if (!user) return null;
 
         // Compare passwords
-        const valid = await bcrypt.compare(password, user.password);
+        const valid = await bcrypt.compare(loginInput.password, user.password);
 
         if (!valid) return null;
 
