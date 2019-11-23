@@ -29,13 +29,16 @@
     "@types/express-session": "^1.15.11",
     "@types/graphql": "^14.0.4",
     "@types/ioredis": "^4.0.4",
+    "@types/jest": "^24.0.23",
     "@types/node": "^12.12.11",
     "@types/nodemailer": "^6.2.2",
     "@types/uuid": "^3.4.6",
+    "jest": "^24.9.0",
     "nodemon": "^2.0.0",
+    "ts-jest": "^24.2.0",
     "ts-node": "^8.5.2",
     "ts-node-dev": "^1.0.0-pre.32",
-    "typescript": "^3.2.2"
+    "typescript": "^3.7.2"
   },
   "scripts": {
     "start": "ts-node-dev --respawn src/index.ts"
